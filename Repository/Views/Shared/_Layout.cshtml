@@ -1,0 +1,79 @@
+﻿@using Repository.Helpers;
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+<head>
+    <title>Repository</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/sb-admin.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome/css/font-awesome.css" rel="stylesheet" />
+</head>
+    
+<body data-ng-app="main" data-ng-controller="RootController" @Html.RequestVerificationToken()>
+    <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+    <div id="wrapper">
+        <nav  class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="navbar-header">               
+                <a style="color:black" class="navbar-brand" href="#/" translate="DR"></a>
+            </div>           
+            <ul class="nav navbar-top-links navbar-right">
+                <li data-ng-show="authenticated" data-ng-class="{active : activeViewPath==='/books'}"><a href='#/books' translate="B"></a></li>
+                <li data-ng-show="authenticated" data-ng-class="{active : activeViewPath==='/addBook'}"><a href='#/addBook' translate="B"></a></li> 
+                <li data-ng-show="authenticated" class="dropdown">
+                <a href="#" style="color:black" role="button" class="dropdown-toggle" data-toggle="dropdown"> 
+                <i class="fa fa-user fa-fw"></i>
+                  {{username}} <i class="caret"></i></a>
+                <ul class="dropdown-menu dropdown-user">
+                <li data-ng-class="{active : activeViewPath==='/userprofile/{{username}}'}"><a style="color:gray" href="#/userprofile/{{username}}"><i class="fa fa-user fa-fw"></i>{{'UP' | translate}}</a></li>
+                <li><a style="color:gray" href="#" data-ng-click ="editProfile()" ><i class="fa fa-user fa-fw"></i> {{'EP' | translate}}</a></li>
+                <li class="divider"></li>
+                <li ><a style="color:gray" href="#" data-ng-click ="signout()"><i class="fa fa-sign-out fa-fw"></i> {{'LOGOUT' | translate}}</a></li>        
+              </ul>
+             </li>
+              <li>
+             <form name="loginform" data-ng-submit="signin(loginform.$valid)" data-ng-hide="authenticated" role="form" novalidate>            
+            <li><div class="form-group" data-ng-class="{ 'has-error' : seeError }"><input class="form-control" placeholder="{{'UN' | translate}}" name="username" data-ng-model="login.Username" type="username" autofocus></div></li>
+            <li><div class="form-group" data-ng-class="{ 'has-error' : seeError }"><input class="form-control" placeholder="{{'PASS' | translate}}" name="password" data-ng-model="login.Password" type="password" value=""></div></li>
+            <li><div class="form-group"><input type="submit" class="btn btn-default" value="{{'LOGIN' | translate}}" /></div> </li>                              
+            </li>
+             </form> 
+
+                <li class="dropdown">
+ 						<a class="dropdown-toggle" data-toggle="dropdown"  data-no-turbolink="true"> {{'kojiJezik' | translate}} <span class="caret"></span></a>
+  						<ul class="dropdown-menu" role="menu">
+  							<li>
+ 								<a href="#" ng-click="changeLanguage('ba')" data-no-turbolink="true">BA</a>
+ 								<a href="#" ng-click="changeLanguage('en')" data-no-turbolink="true">EN</a>
+                               </li>
+  						</ul>
+  					</li>
+
+            </ul>          
+        </nav>       
+            <div style="background-color:white" class="col-md-12">               
+                  @RenderBody()                  
+            </div>          
+    </div>      
+    @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/bundles/app")
+    <script src="~/Scripts/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/app/sb-admin.js"></script>
+    <script src="~/Scripts/ui-bootstrap-tpls-0.11.0.min.js"></script>
+    <script src="~/Scripts/app/elasticsearch.angular.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/angular-translate.js"></script>
+    
+    @RenderSection("scripts", required: false)
+</body>
+</html>

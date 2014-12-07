@@ -1,0 +1,56 @@
+﻿@{
+    Layout = null;
+}
+
+ <div class="col-lg-12">
+     
+         <div class="row">           
+        <div class="col-lg-8">                           
+       <div class="input-group custom-search-form">           
+          <input type="text" typeahead="c for c in translations" data-ng-model="query" data-ng-change="translateText()" class="form-control" placeholder="{{field}}">
+         
+          <span class="input-group-btn">
+             <button class="btn btn-default" data-ng-click="search()" type="button">
+                 <i class="fa fa-search"></i>
+              </button></span>         
+        </div>
+                                     
+                                      
+        </div>
+             <div class="col-lg-4">
+               <div class="form-group">
+                   {{'searchby' | translate}} 
+           <select data-ng-model="field"  class="btn btn-default dropdown-toggle">
+                                                <option>{{'title' | translate}}</option>
+                                                <option>{{'data' | translate}}</option>                                               
+                                                <option>{{'author' | translate}}</option>                                               
+                                            </select>            
+            </div> 
+                 </div>   
+   </div>                   
+</div>
+<div class="col-lg-12"><br /></div> 
+ <div data-ng-repeat ="book in books" class="col-lg-12">
+   <a id="{{book.id}}" data-ng-class="{active : activeViewPath==='/book/details/{{book.id}}'}"  href="#/book/details/{{book.id}}">
+    <div class="col-lg-6">
+    <div class="panel panel-default">
+     <div class="panel-heading"> <p class="text-success"> {{'score' | translate}}: {{book.score}} </p></div>            
+    <div class="panel-body">  
+         <div class="col-lg-6">
+         
+           <div class="thumbnail">     
+            <img data-ng-src="{{book.imgurl}}" class="img-rounded img-responsive" />
+           </div>       
+        <h4 style="text-align:center">{{book.title}}</h4>       
+     </div>          
+    <div class="col-lg-6">
+        <p data-ng-bind-html="book.highlight"></p>
+     </div>
+    </div>   
+  </div>
+</div>
+ </a> 
+</div>
+<div class="col-lg-12">
+<pagination  total-items="booksSize" max-size="maxSize" items-per-page="itemsPerPage" data-ng-model="currentPage" class="pagination-sm" boundary-links="true" rotate="true" ></pagination>
+ </div>
